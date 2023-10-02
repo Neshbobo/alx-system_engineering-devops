@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "Create a script that removes all letters c and C from input" | tr -d 'cC'
+tr -d "cC"
