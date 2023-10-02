@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "This is a test sentence with A and c characters." | tr 'Ac' 'Ze'
