@@ -1,0 +1,2 @@
+#!/bin/bash
+perl -line 'print f $ % 2 ==1'
