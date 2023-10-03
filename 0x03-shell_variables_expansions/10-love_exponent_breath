@@ -1,3 +1,2 @@
 #!/bin/bash
-echo -e "$BREATH^$LOVE\n" | bc -l
-
+echo -e "$((BREATH ** LOVE))\n"
