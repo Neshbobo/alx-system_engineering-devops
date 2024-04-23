@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Check if the number of arguments is less than 3
+ Check if the number of arguments is less than 3
 if [ "$#" -lt 3 ]; then
     echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
     exit 1
@@ -12,8 +12,19 @@ SERVER_IP=$2
 USERNAME=$3
 SSH_KEY_PATH=$4
 
+# Display a message indicating what the script is doing
+echo "Transferring $FILE_PATH to $USERNAME@$SERVER_IP using $SSH_KEY_PATH..."
+
 # Disable strict host key checking
 ssh_options="-o StrictHostKeyChecking=no"
 
 # Transfer the file using scp with the specified options
 scp $ssh_options -i $SSH_KEY_PATH $FILE_PATH $USERNAME@$SERVER_IP:~/
+
+# Display a message indicating whether the transfer was successful
+if [ $? -eq 0 ]; then
+    echo "Transfer successful."
+    ssh $ssh_options -i $SSH_KEY_PATH $USERNAME@$SERVER_IP 'ls ~/'
+else
+    echo "Transfer failed."
+fi
