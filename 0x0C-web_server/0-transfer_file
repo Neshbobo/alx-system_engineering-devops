@@ -1,30 +1,26 @@
 #!/usr/bin/env bash
-
- Check if the number of arguments is less than 3
-if [ "$#" -lt 3 ]; then
-    echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
-    exit 1
+# Checking for command-line argument
+if [ $# -lt 4 ]
+then
+  echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+  exit 1
 fi
 
-# Assign the arguments to variables
-FILE_PATH=$1
-SERVER_IP=$2
-USERNAME=$3
-SSH_KEY_PATH=$4
+# Assigning Arguments to variables
 
-# Display a message indicating what the script is doing
-echo "Transferring $FILE_PATH to $USERNAME@$SERVER_IP using $SSH_KEY_PATH..."
+path_to_file=$1
+ip=$2
+username=$3
+path_to_ssh_key=$4
 
-# Disable strict host key checking
-ssh_options="-o StrictHostKeyChecking=no"
 
-# Transfer the file using scp with the specified options
-scp $ssh_options -i $SSH_KEY_PATH $FILE_PATH $USERNAME@$SERVER_IP:~/
+# Disabbling Strict Host Key checking
+scp -o "StrictHostKeyChecking no" -i "$path_to_ssh_key" "$path_to_file" "$username@$ip:~/"
 
-# Display a message indicating whether the transfer was successful
-if [ $? -eq 0 ]; then
-    echo "Transfer successful."
-    ssh $ssh_options -i $SSH_KEY_PATH $USERNAME@$SERVER_IP 'ls ~/'
+# Checking if the transfer was successful
+if [ $? -eq 0 ]
+then
+  echo "FILE TRANSFER WAS SUCCESSFULL"
 else
-    echo "Transfer failed."
+  echo "FILE TRANSFER FAILED"
 fi
