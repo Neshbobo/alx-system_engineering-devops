@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Check if MySQL is already installed
+if [ $(dpkg -l | grep -c "mysql-server-5.7") -eq 0 ]; then
+  # Add MySQL 5.7 repository
+  sudo add-apt-repository 'deb http://archive.ubuntu.com/ubuntu xenial-updates main'
+  sudo add-apt-repository 'deb http://archive.ubuntu.com/ubuntu xenial-updates universe'
+
+  # Update package list
+  sudo apt update
+
+  # Install MySQL 5.7
+  sudo apt install -y mysql-server-5.7
+
+  # Start MySQL service
+  sudo service mysql start
+
+  # Check MySQL version
+  mysql --version
+else
+  echo "MySQL 5.7 is already installed"
+fi
