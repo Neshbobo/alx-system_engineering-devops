@@ -4,3 +4,4 @@ exec { 'fix-wordpress':
 /var/www/html/wp-settings.php; service apache2 restart"',
   path    => '/usr/bin:/usr/sbin:/bin'
   }
+  
